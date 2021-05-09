@@ -14,7 +14,6 @@ public class Glucose {
     private long id;
     private double glucose;
     private Date date;
-
     @ManyToOne
     private Patient patient;
 }

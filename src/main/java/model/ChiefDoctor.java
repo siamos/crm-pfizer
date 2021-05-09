@@ -14,8 +14,6 @@ public class ChiefDoctor extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String role = "chiefDoctor";
-
-
 }
 
 

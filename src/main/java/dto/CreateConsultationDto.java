@@ -1,23 +1,16 @@
-package model;
+package dto;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import model.Doctor;
+import model.Patient;
 import java.util.Date;
 
-
 @Data
-@Entity
-public class Consultation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class CreateConsultationDto implements IDto {
     private Date date;
     private String medicationName;
     private double dosage;
     private String comment;
-    @ManyToOne
     private Patient patient;
-    @ManyToOne
     private Doctor doctor;
 }
