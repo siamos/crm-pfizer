@@ -15,7 +15,6 @@ public class GlucoseRepresentation {
     private double glucose;
     private Date date;
     private long patientId;
-
     private String uri;
 
     public GlucoseRepresentation(Glucose glucose) {
@@ -37,7 +36,7 @@ public class GlucoseRepresentation {
 
         if(date== null) date= new Date();
         glucose.setDate(date);
-
+        //move to service
         EntityManager em= JpaUtil.getEntityManager();
         PatientRepository patientRepository= new PatientRepository(em);
         glucose.setPatient(patientRepository.read(patientId));

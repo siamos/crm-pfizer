@@ -1,7 +1,6 @@
 package Service;
 
-import dto.IDto;
-
+import representation.IDto;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;

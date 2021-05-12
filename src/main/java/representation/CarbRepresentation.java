@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class CarbRepresentation {
+public class CarbRepresentation implements IDto{
     private long id;
     private double carb;
     private Date date;

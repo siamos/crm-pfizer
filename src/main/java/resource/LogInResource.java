@@ -17,6 +17,7 @@ import java.util.List;
 public class LogInResource extends ServerResource {
 
 
+    //change all the function login
     @Get
     public List<Integer> logIn() {
         String username = getQueryValue("username");

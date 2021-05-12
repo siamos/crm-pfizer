@@ -49,6 +49,7 @@ public class PatientRepresentation {
     }
 
     public Patient createPatient() {
+        //map with automapper
         Patient patient = new Patient();
         patient.setUsername(username);
         patient.setPassword(password);
@@ -59,7 +60,7 @@ public class PatientRepresentation {
         patient.setSex(sex);
         patient.setDateRegistered(dateRegistered);
 
-
+        //move it  to service
         EntityManager em = JpaUtil.getEntityManager();
         DoctorRepository doctorRepository = new DoctorRepository(em);
         patient.setDoctor(doctorRepository.read(doctorId));

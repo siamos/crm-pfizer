@@ -23,7 +23,8 @@ public abstract class Repository<T, K> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+
+        return t;
     }
 
     public abstract Class<T> getEntityClass();
@@ -40,6 +41,7 @@ public abstract class Repository<T, K> {
         }
     }
 
+    //paging, number, page length
     public List<T> findAll() {
         try {
             return entityManager.createQuery("from " + getClassName()).getResultList();
@@ -58,8 +60,8 @@ public abstract class Repository<T, K> {
             return t;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
     //Verify
 
