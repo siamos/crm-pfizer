@@ -4,6 +4,7 @@ import Interface.PatientInterface;
 import model.ChiefDoctor;
 import model.Doctor;
 import model.Patient;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import repository.ChiefDoctorRepository;
 import repository.DoctorRepository;
@@ -105,8 +106,12 @@ public class PatientServiceImpl implements PatientInterface {
 
     public Patient updatePatient(long id, PatientRepresentation patientDto) {
         Patient patient = this.patientRepository.read(id);
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
         modelMapper.map(patientDto, patient);
-
+        patient.setId(id);
+        if(patientDto.getDoctorId() == 0) {
+            patient.setDoctor(null);
+        }
         return this.patientRepository.update(patient);
     }
 }

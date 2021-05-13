@@ -59,7 +59,7 @@ public abstract class Repository<T, K> {
             entityManager.merge(t);
             entityManager.getTransaction().commit();
             return t;
-        } catch (Exception e) {
+            } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

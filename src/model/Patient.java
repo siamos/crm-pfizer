@@ -2,6 +2,8 @@ package model;
 
 
 import lombok.Data;
+import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,6 +32,4 @@ public class Patient extends User {
     private List<Glucose> glucoseList;
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Consultation> consultationList;
-
-
 }
