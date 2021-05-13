@@ -2,15 +2,18 @@ package resource;
 
 import exception.AuthorizationException;
 import org.restlet.resource.ServerResource;
+import org.restlet.security.Role;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class ResourceUtils {
     public static void checkRole(ServerResource serverResource, String role) throws AuthorizationException {
-        if (!serverResource.isInRole(role)) {
+        List<Role> roles = serverResource.getRequest().getClientInfo().getRoles();
+        if (!roles.get(0).getName().equalsIgnoreCase(role)) {
             throw new AuthorizationException("You're not authorized to send this call.");
         }
     }

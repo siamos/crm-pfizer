@@ -66,6 +66,6 @@ public class PatientCarbResource extends ServerResource {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         EntityManager em = JpaUtil.getEntityManager();
         CarbRepository carbRepository = new CarbRepository(em);
-        carbRepository.delete(carbRepository.read(carbId).getId());
+        carbRepository.delete(carbRepository.read(carbId));
     }
 }

@@ -1,7 +1,6 @@
 package Service;
 
 import Interface.PatientInterface;
-import jpaUtil.JpaUtil;
 import model.ChiefDoctor;
 import model.Doctor;
 import model.Patient;
@@ -10,8 +9,6 @@ import repository.ChiefDoctorRepository;
 import repository.DoctorRepository;
 import repository.PatientRepository;
 import representation.PatientRepresentation;
-
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,5 +97,16 @@ public class PatientServiceImpl implements PatientInterface {
     public PatientRepresentation getPatient(long id) {
         Patient patient = this.patientRepository.read(id);
         return new PatientRepresentation(patient);
+    }
+
+    public Boolean deletePatient(long id) {
+       return this.patientRepository.delete(this.patientRepository.read(id));
+    }
+
+    public Patient updatePatient(long id, PatientRepresentation patientDto) {
+        Patient patient = this.patientRepository.read(id);
+        modelMapper.map(patientDto, patient);
+
+        return this.patientRepository.update(patient);
     }
 }

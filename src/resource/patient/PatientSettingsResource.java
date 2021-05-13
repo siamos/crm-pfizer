@@ -78,12 +78,18 @@ public class PatientSettingsResource extends ServerResource {
     }
 
     @Delete("json")
-    public void deletePatient() throws AuthorizationException {
+    public Boolean deletePatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
-        EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository patientRepository = new PatientRepository(em);
-        patientRepository.delete(patientRepository.read(id).getId());
+        PatientServiceImpl patientService = new PatientServiceImpl(
+                new PatientRepository(em),
+                new DoctorRepository(em),
+                new ChiefDoctorRepository(em),
+                new ModelMapper());
+
+        if (id <= 0) return false;
+
+        return patientService.deletePatient(id);
     }
 
 }

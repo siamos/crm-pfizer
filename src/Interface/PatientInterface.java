@@ -14,4 +14,5 @@ public interface PatientInterface {
     Doctor isDoctor(String username, String password);
     ChiefDoctor isChiefDoctor(String username, String password);
     PatientRepresentation getPatient(long id);
+    Boolean deletePatient(long id);
 }

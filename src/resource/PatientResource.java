@@ -19,52 +19,57 @@ import javax.persistence.EntityManager;
 
 public class PatientResource extends ServerResource {
     private long id;
+    private EntityManager em;
 
     protected void doInit() {
+        em = JpaUtil.getEntityManager();
         id = Long.parseLong(getAttribute("id"));
+    }
+
+    protected void doRelease() {
+        em.close();
     }
 
 
     @Get("json")
     public PatientRepresentation getPatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+        PatientServiceImpl patientService = new PatientServiceImpl(
+                new PatientRepository(em),
+                new DoctorRepository(em),
+                new ChiefDoctorRepository(em),
+                new ModelMapper());
 
-        EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository patientRepository = new PatientRepository(em);
-        Patient patient = patientRepository.read(id);
-        PatientRepresentation patientRepresentation = new PatientRepresentation(patient);
-        em.close();
-        return patientRepresentation;
+        if (id <= 0) return null;
+
+        return patientService.getPatient(id);
     }
 
     @Put("json")
     public PatientRepresentation updatePatient(PatientRepresentation patientRepresentation) throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
 
-        EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository patientRepository = new PatientRepository(em);
         PatientServiceImpl patientService = new PatientServiceImpl(
                 new PatientRepository(em),
                 new DoctorRepository(em),
                 new ChiefDoctorRepository(em),
                 new ModelMapper());
-        Patient patient = patientService.createPatient(patientRepresentation);
-        Patient oldPatient = patientRepository.read(id);
-        em.detach(patient);
-        patient.setId(id);
-        patient.setDateRegistered(oldPatient.getDateRegistered());
-        patientRepository.update(patient);
 
-        return patientRepresentation;
+        Patient patient = patientService.updatePatient(id, patientRepresentation);
+
+        return new PatientRepresentation(patient);
     }
 
     @Delete("json")
-    public void deletePatient() throws AuthorizationException {
+    public Boolean deletePatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+        PatientServiceImpl patientService = new PatientServiceImpl(
+                new PatientRepository(em),
+                new DoctorRepository(em),
+                new ChiefDoctorRepository(em),
+                new ModelMapper());
 
-        EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository patientRepository = new PatientRepository(em);
-        patientRepository.delete(patientRepository.read(id).getId());
+        return patientService.deletePatient(id);
     }
 
 }

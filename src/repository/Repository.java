@@ -68,8 +68,7 @@ public abstract class Repository<T, K> {
 
 
     // Delete
-    public boolean delete(K id) {
-        T t = read(id);
+    public boolean delete(T t) {
         if (t == null) {
             return false;
         }

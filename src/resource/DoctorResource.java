@@ -49,7 +49,7 @@ public class DoctorResource extends ServerResource {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         EntityManager em = JpaUtil.getEntityManager();
         DoctorRepository doctorRepository = new DoctorRepository(em);
-        doctorRepository.delete(doctorRepository.read(id).getId());
+        doctorRepository.delete(doctorRepository.read(id));
     }
 
 }
