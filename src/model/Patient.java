@@ -1,17 +1,13 @@
 package model;
 
-
 import lombok.Data;
-import lombok.ToString;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
-public class Patient extends User {
+public class Patient extends model.User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
