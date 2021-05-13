@@ -21,7 +21,7 @@ public class ConsultationListResource extends ServerResource {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         EntityManager em = JpaUtil.getEntityManager();
         ConsultationRepository consultationRepository = new ConsultationRepository(em);
-        List<Consultation> consultationList = consultationRepository.findAll();
+        List<Consultation> consultationList = consultationRepository.findAll(0,10);
         em.close();
 
         List<ConsultationRepresentation> consultationRepresentationList = new ArrayList<>();

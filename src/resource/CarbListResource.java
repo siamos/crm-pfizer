@@ -1,5 +1,6 @@
 package resource;
 
+import Service.CarbServiceImpl;
 import exception.AuthorizationException;
 import jpaUtil.JpaUtil;
 import model.Carb;
@@ -11,24 +12,27 @@ import representation.CarbRepresentation;
 import security.Shield;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
 public class CarbListResource extends ServerResource {
+
+    private EntityManager em;
+    protected void doInit() {
+        em = JpaUtil.getEntityManager();
+    }
+
+    protected void doRelease() {
+        em.close();
+    }
+
     @Get("json")
     public List<CarbRepresentation> getCarb() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
-        EntityManager em = JpaUtil.getEntityManager();
-        CarbRepository carbRepository = new CarbRepository(em);
-        List<Carb> carbs = carbRepository.findAll();
-        em.close();
-
-        List<CarbRepresentation> carbRepresentationList = new ArrayList<>();
-        for (Carb p : carbs)
-            carbRepresentationList.add(new CarbRepresentation(p));
-
-        return carbRepresentationList;
+        CarbServiceImpl carbService = new CarbServiceImpl(new CarbRepository(em));
+        List<Carb> carbs = carbService.findAllCarbs(0,10);
+        return carbService.createCarbRepresentationList(carbs);
     }
 
     @Post("json")

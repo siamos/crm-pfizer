@@ -15,7 +15,7 @@ public class Patient extends User {
     private long id;
     private int age;
     private String sex;
-    private Date dateRegistered;
+    private Date dateRegistered = new Date();
     private String role = "patient";
     private boolean consultationChanged = false;
     private Date recentConsultation;

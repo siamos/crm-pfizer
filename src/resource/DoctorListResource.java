@@ -21,7 +21,7 @@ public class DoctorListResource extends ServerResource {
 
         EntityManager em = JpaUtil.getEntityManager();
         DoctorRepository doctorRepository = new DoctorRepository(em);
-        List<Doctor> doctors = doctorRepository.findAll();
+        List<Doctor> doctors = doctorRepository.findAll(0,10);
         em.close();
 
         List<DoctorRepresentation> doctorRepresentationList = new ArrayList<>();

@@ -21,7 +21,7 @@ public class GlucoseListResource extends ServerResource {
         resource.ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         EntityManager em = JpaUtil.getEntityManager();
         GlucoseRepository glucoseRepository = new GlucoseRepository(em);
-        List<Glucose> glucoses = glucoseRepository.findAll();
+        List<Glucose> glucoses = glucoseRepository.findAll(0,10);
         em.close();
 
         List<GlucoseRepresentation> glucoseRepresentationList = new ArrayList<>();

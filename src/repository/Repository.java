@@ -19,9 +19,7 @@ public abstract class Repository<T, K> {
             entityManager.persist(t);
             entityManager.getTransaction().commit();
         } catch (ConstraintViolationException e) {
-            System.out.println("Already registered!");
-        } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
 
         return t;
@@ -42,9 +40,12 @@ public abstract class Repository<T, K> {
     }
 
     //paging, number, page length
-    public List<T> findAll() {
+    public List<T> findAll(int offset, int limit) {
         try {
-            return entityManager.createQuery("from " + getClassName()).getResultList();
+            return entityManager.createQuery("from " + getClassName())
+                    .setFirstResult(offset)
+                    .setMaxResults(limit)
+                    .getResultList();
         } catch (Exception e) {
             return null;
         }

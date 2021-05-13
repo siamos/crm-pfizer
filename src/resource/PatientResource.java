@@ -1,12 +1,16 @@
 package resource;
 
+import Service.PatientServiceImpl;
 import exception.AuthorizationException;
 import jpaUtil.JpaUtil;
 import model.Patient;
+import org.modelmapper.ModelMapper;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
+import repository.ChiefDoctorRepository;
+import repository.DoctorRepository;
 import repository.PatientRepository;
 import representation.PatientRepresentation;
 import security.Shield;
@@ -39,7 +43,12 @@ public class PatientResource extends ServerResource {
 
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
-        Patient patient = patientRepresentation.createPatient();
+        PatientServiceImpl patientService = new PatientServiceImpl(
+                new PatientRepository(em),
+                new DoctorRepository(em),
+                new ChiefDoctorRepository(em),
+                new ModelMapper());
+        Patient patient = patientService.createPatient(patientRepresentation);
         Patient oldPatient = patientRepository.read(id);
         em.detach(patient);
         patient.setId(id);

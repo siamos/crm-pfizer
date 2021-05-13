@@ -19,7 +19,7 @@ public class ChiefDoctorListResource extends ServerResource {
 //        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         EntityManager em = JpaUtil.getEntityManager();
         ChiefDoctorRepository chiefDoctorRepository = new ChiefDoctorRepository(em);
-        List<ChiefDoctor> chiefDoctors = chiefDoctorRepository.findAll();
+        List<ChiefDoctor> chiefDoctors = chiefDoctorRepository.findAll(0,10);
         em.close();
 
         List<ChiefDoctorRepresentation> chiefDoctorRepresentationList = new ArrayList<>();

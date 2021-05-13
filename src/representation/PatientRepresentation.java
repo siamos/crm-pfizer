@@ -23,8 +23,6 @@ public class PatientRepresentation {
     private long doctorId;
     private Date dateRegistered;
     private boolean consultationChanged;
-
-
     private String uri;
 
     public PatientRepresentation(Patient patient) {
@@ -45,26 +43,5 @@ public class PatientRepresentation {
 
             uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
-
-    }
-
-    public Patient createPatient() {
-        //map with automapper
-        Patient patient = new Patient();
-        patient.setUsername(username);
-        patient.setPassword(password);
-        patient.setName(name);
-        patient.setAddress(address);
-        patient.setEmail(email);
-        patient.setAge(age);
-        patient.setSex(sex);
-        patient.setDateRegistered(dateRegistered);
-
-        //move it  to service
-        EntityManager em = JpaUtil.getEntityManager();
-        DoctorRepository doctorRepository = new DoctorRepository(em);
-        patient.setDoctor(doctorRepository.read(doctorId));
-
-        return patient;
     }
 }

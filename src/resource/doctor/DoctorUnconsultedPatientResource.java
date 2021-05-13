@@ -1,11 +1,14 @@
 package resource.doctor;
 
+import Service.PatientServiceImpl;
 import exception.AuthorizationException;
 import jpaUtil.JpaUtil;
 import model.Patient;
+import org.modelmapper.ModelMapper;
 import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
+import repository.ChiefDoctorRepository;
 import repository.DoctorRepository;
 import repository.PatientRepository;
 import representation.PatientRepresentation;
@@ -50,7 +53,12 @@ public class DoctorUnconsultedPatientResource extends ServerResource {
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
-        Patient patient = patientRepresentation.createPatient();
+        PatientServiceImpl patientService = new PatientServiceImpl(
+                new PatientRepository(em),
+                new DoctorRepository(em),
+                new ChiefDoctorRepository(em),
+                new ModelMapper());
+        Patient patient = patientService.createPatient(patientRepresentation);
         em.detach(patient);
         patient.setId(unconsultedPatientId);
         patientRepository.update(patient);

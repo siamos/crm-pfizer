@@ -1,34 +1,48 @@
 package resource;
 
+import Service.PatientServiceImpl;
 import exception.AuthorizationException;
 import jpaUtil.JpaUtil;
 import model.Patient;
+import org.modelmapper.ModelMapper;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
+import repository.ChiefDoctorRepository;
+import repository.DoctorRepository;
 import repository.PatientRepository;
 import representation.PatientRepresentation;
 
 import javax.persistence.EntityManager;
-import java.util.Date;
 
 public class registerResource extends ServerResource {
 
+    private EntityManager em;
+    protected void doInit() {
+        em = JpaUtil.getEntityManager();
+    }
+
+    protected void doRelease() {
+        em.close();
+    }
 
     @Post("json")
-    public PatientRepresentation add(PatientRepresentation patientRepresentationIn) throws AuthorizationException {
+    public Patient add(PatientRepresentation patientRepresentationIn) throws AuthorizationException {
 
-        if (patientRepresentationIn == null) return null;
-        if (patientRepresentationIn.getUsername() == null) return null;
-        if (patientRepresentationIn.getPassword() == null) return null;
+        if (patientFailedValidation(patientRepresentationIn)) return null;
 
-        Patient patient = patientRepresentationIn.createPatient();
-        if (patientRepresentationIn.getDateRegistered() == null) patient.setDateRegistered(new Date());
-        EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository patientRepository = new PatientRepository(em);
-        patientRepository.save(patient);
-        PatientRepresentation p = new PatientRepresentation(patient);
-        em.close();
-        return p;
+        PatientServiceImpl patientService = new PatientServiceImpl(
+                new PatientRepository(em),
+                new DoctorRepository(em),
+                new ChiefDoctorRepository(em),
+                new ModelMapper());
+
+        return patientService.createPatient(patientRepresentationIn);
+    }
+
+    private boolean patientFailedValidation(PatientRepresentation patientRepresentationIn) {
+        return patientRepresentationIn == null
+                || patientRepresentationIn.getUsername() == null
+                || patientRepresentationIn.getPassword().isEmpty();
     }
 
 }
