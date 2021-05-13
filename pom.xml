@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>gr.codehub</groupId>
     <artifactId>sacchon</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -29,6 +29,7 @@
                             <mainClass>main.java.Main</mainClass>
                         </manifest>
                     </archive>
+                    <webXml>src\main\webapp\WEB-INF\web.xml</webXml>
                 </configuration>
 			</plugin>
 		</plugins>
