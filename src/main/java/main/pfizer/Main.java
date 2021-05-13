@@ -1,4 +1,4 @@
-package main.java;
+package main.pfizer;
 
 import org.restlet.Application;
 import org.restlet.Component;

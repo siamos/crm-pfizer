@@ -5,7 +5,7 @@
         <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
         <init-param>
             <param-name>org.restlet.application</param-name>
-            <param-value>main.java.Main</param-value>
+            <param-value>main.pfizer.Main</param-value>
         </init-param>
     </servlet>
 

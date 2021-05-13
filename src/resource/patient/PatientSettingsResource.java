@@ -3,7 +3,6 @@ package resource.patient;
 import Service.PatientServiceImpl;
 import exception.AuthorizationException;
 import jpaUtil.JpaUtil;
-import main.java.Main;
 import model.Patient;
 import org.modelmapper.ModelMapper;
 import org.restlet.engine.Engine;

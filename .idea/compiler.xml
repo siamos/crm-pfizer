@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="sacchon" target="1.8" />
+      <module name="sacchon" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
