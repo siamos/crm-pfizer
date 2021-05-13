@@ -1,6 +1,5 @@
 package main.java;
 
-import jpaUtil.JpaUtil;
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Restlet;
@@ -12,7 +11,6 @@ import router.CustomRouter;
 import security.CorsFilter;
 import security.Shield;
 
-import javax.persistence.EntityManager;
 import java.util.logging.Logger;
 
 public class Main extends Application {

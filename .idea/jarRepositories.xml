@@ -26,10 +26,5 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
-    <remote-repository>
-      <option name="id" value="maven-restlet" />
-      <option name="name" value="Public online Restlet repository" />
-      <option name="url" value="http://maven.restlet.talend.com" />
-    </remote-repository>
   </component>
 </project>

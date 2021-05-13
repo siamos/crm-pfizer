@@ -18,7 +18,7 @@ import java.util.List;
 public class GlucoseListResource extends ServerResource {
     @Get("json")
     public List<GlucoseRepresentation> getGlucose() throws AuthorizationException {
-        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+        resource.ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         EntityManager em = JpaUtil.getEntityManager();
         GlucoseRepository glucoseRepository = new GlucoseRepository(em);
         List<Glucose> glucoses = glucoseRepository.findAll();
