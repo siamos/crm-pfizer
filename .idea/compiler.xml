@@ -7,13 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sacchon" />
-        <module name="crm-pfizer" />
+        <module name="pfizer-siamos" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="crm-pfizer" target="8" />
-      <module name="sacchon" target="8" />
+      <module name="pfizer-siamos" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

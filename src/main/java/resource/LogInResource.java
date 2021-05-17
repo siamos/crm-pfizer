@@ -19,25 +19,25 @@ import java.util.List;
 
 public class LogInResource extends ServerResource {
 
-    private EntityManager em;
+    private EntityManager entityManager;
+    private PatientServiceImpl patientService;
 
     protected void doInit() {
-        em = JpaUtil.getEntityManager();
+        entityManager = JpaUtil.getEntityManager();
+        patientService = new PatientServiceImpl(
+                new PatientRepository(entityManager),
+                new DoctorRepository(entityManager),
+                new ChiefDoctorRepository(entityManager),
+                new ModelMapper());
     }
 
     protected void doRelease() {
-        em.close();
+        entityManager.close();
     }
 
     //change all the function login
     @Post("json")
     public List<Integer> logIn(LoginUserRepresentation userDto) {
-
-        PatientServiceImpl patientService = new PatientServiceImpl(
-                new PatientRepository(em),
-                new DoctorRepository(em),
-                new ChiefDoctorRepository(em),
-                new ModelMapper());
 
         if (userFailedValidation(userDto)) return null;
 

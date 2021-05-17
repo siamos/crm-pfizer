@@ -1,12 +1,2 @@
-
-## Code.Hub | Pfizer - Software & Cloud Engineering Bootcamp
- 
-  
-#Sacchon 
- 
-###Project scope  
- 
-The project aim is to develop the Sacchon app and deliver it ready to be 
-released. The requirements are given by the Sacchon Consulting Enterprise 
-(a fictional company).  
- 
+# pfizer-siamos
+url: http://ec2-3-137-142-106.us-east-2.compute.amazonaws.com:9000/v1/ping
